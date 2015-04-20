@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+}
+form {
+    display:block;
+    width: 65%;
+}
+input {
+    margin-top: 3px;
+}
+input[type=text], input[type=email], input[type=tel] {
+    width: 200px;
+}
+div>table {
+    border: 1px solid black;
+    margin-bottom: 30px;
+}
+div select {
+    margin-left: 5px;
+}
+th, td {
+    border: 1px solid black;
+    padding: 3px;
+}

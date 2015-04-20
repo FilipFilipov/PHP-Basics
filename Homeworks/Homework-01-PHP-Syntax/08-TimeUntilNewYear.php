@@ -1,10 +1,15 @@
 <?php
-date_default_timezone_set('UTC');
+date_default_timezone_set('Europe/Sofia');
 
 $dateArray = getdate();
 $now = new DateTime(date('r', $dateArray[0]));
 $newYear = new DateTime('January 1st +1 year');
+
+if($now->format('I')) {
+    $newYear->sub(new DateInterval('1H'));
+}
 $dateDiff = $newYear->diff($now);
+
 $hoursDiff = $dateDiff->days * 24 + $dateDiff->h;
 $minutesDiff = $hoursDiff * 60 + $dateDiff->i;
 $secondsDiff = $minutesDiff * 60 + $dateDiff->s;

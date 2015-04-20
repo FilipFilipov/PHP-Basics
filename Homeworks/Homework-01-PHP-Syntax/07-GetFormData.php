@@ -23,7 +23,7 @@
 </form>
 <div>
     <?php
-    if(isset($_GET['submit'])) {
+    if(isset($_GET['name']) && isset($_GET['age']) && isset($_GET['gender'])) {
         echo "My name is ". htmlspecialchars($_GET['name']) . ". I am " .
             htmlspecialchars($_GET['age']) . " year old. I am " . htmlspecialchars($_GET['gender']) . ".";
     }
