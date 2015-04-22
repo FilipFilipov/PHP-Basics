@@ -7,18 +7,18 @@
 <body>
 <form action="03-CalculateInterest.php" method="post">
     <label for="amount">Enter Amount</label>
-    <input type="text" name="amount" id="amount">
+    <input type="text" name="amount" id="amount" required/>
     <div>
-        <input type="radio" name="currency" id="dollar" value="$">
+        <input type="radio" name="currency" id="dollar" value="$" required/>
         <label for="dollar">USD</label>
-        <input type="radio" name="currency" id="euro" value="€">
+        <input type="radio" name="currency" id="euro" value="€" required/>
         <label for="euro">EUR</label>
-        <input type="radio" name="currency" id="lev" value="лв" >
+        <input type="radio" name="currency" id="lev" value="лв" required/>
         <label for="lev">BGL</label>
     </div>
     <div>
         <label for="interest">Compound Interest Amount</label>
-        <input type="text" name="interest" id="interest"></div>
+        <input type="text" name="interest" id="interest" required/></div>
     <select name="period">
         <option value="6">6 Months</option>
         <option value="12">1 Year</option>
@@ -30,9 +30,12 @@
 <div>
     <?php
     if (isset($_POST['submit'])){
-        $finalAmount = $_POST['amount'] * pow(1 + ($_POST['interest'] / 12 / 100), $_POST['period']);
+        $amount = (int)htmlspecialchars($_POST['amount']);
+        $monthlyInterest = (int)htmlspecialchars($_POST['interest']) / 12;
+        $period = (int)htmlspecialchars($_POST['period']);
+        $finalAmount = $amount * pow((1 + $monthlyInterest / 100), $period);
         $result = number_format($finalAmount, 2, '.', '');
-        $currency = $_POST['currency'];
+        $currency = htmlspecialchars($_POST['currency']);
         echo $currency !== 'лв' ? "<br/>$currency $result" : "<br/>$result $currency";
     }
     ?>

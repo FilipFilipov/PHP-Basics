@@ -14,9 +14,9 @@
 <br/>
 <?php
 if(isset($_POST['tags'])) {
-    $tags = explode(", ", $_POST['tags']);
+    $tags = explode(", ", htmlspecialchars($_POST['tags']));
     for ($i = 0; $i < count($tags); $i++) {
-        echo "$i : " . htmlspecialchars($tags[$i]) . "<br/>";
+        echo "$i : $tags[$i]<br/>";
     }
 }
 ?>

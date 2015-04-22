@@ -28,13 +28,12 @@ $tags = array('!DOCTYPE', 'a', 'abbr', 'address', 'area', 'article', 'aside', 'a
     'track', 'u', 'ul', 'var', 'video', 'wbr');
 
 if(isset($_POST['tag'])) {
-    if(array_search($_POST['tag'], $tags)){
+    if(in_array(htmlspecialchars($_POST['tag']), $tags)){
         $isValidTag = 'Valid';
         $_SESSION['score']++;
     } else {
         $isValidTag = 'Invalid';
     }
-
     echo "<div style='font-size: 25px'>{$isValidTag} HTML tag! <br/>Score: {$_SESSION['score']}</div>";
 }
 ?>

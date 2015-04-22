@@ -22,10 +22,13 @@ if(isset($_POST['submit-cv'])) {
     $reading = array_map('sanitize', $_POST['reading']);
     $writing = array_map('sanitize', $_POST['writing']);
     $category = htmlspecialchars(isset($_POST['category']) ? implode(', ', $_POST['category']) : '');
+    $counterProg = (int)(htmlspecialchars($_POST["counterProg"]));
+    $counterLang = (int)htmlspecialchars($_POST["counterLang"]);
 }
 else {
     $firstName = $lastName = $email = $phone = $gender = $birthDate = $nationality = $company = $workedFrom = $workedTo = "";
     $programmingLanguages = $levelProgramming = $speakingLanguages = $comprehension = $reading = $writing = $category = "";
+    $counterProg = $counterLang = 1;
 }
 ?>
 <html>
@@ -69,18 +72,22 @@ else {
         <legend>Computer Skills</legend>
         <label>Programming Languages</label><br/>
         <div id="parent-prog-lang"></div>
-        <script>addProgLang();</script>
-        <input type="button" name="remove-item" value="Remove Language" onclick="removeProgLang()"/>
-        <input type="button" name="progLang[]" id="add" value="Add Language" onclick="addProgLang()"/>
+        <?php for($i = 0; $i <= $counterProg; $i++) : ?>
+            <script>addProgLang();</script>
+        <?php endfor;?>
+        <input type="button" name="remove-item" value="Remove Language" onclick="removeProgLang();"/>
+        <input type="button" name="progLang[]" id="add" value="Add Language" onclick="addProgLang(); updatePHPCounterProg();"/>
     </fieldset>
 
     <fieldset>
         <legend>Other Skills</legend>
         <label>Languages</label><br/>
         <div id="speaking-lang-parent"></div>
-        <script>addSpeakingLang();</script>
-        <input type="button" name="remove-lang" value="Remove Language" onclick="removeSpeakingLang()"/>
-        <input type="button" name="remove-lang" value="Add Language" onclick="addSpeakingLang()"/><br/>
+        <?php for($i = 0; $i <= $counterLang; $i++) : ?>
+            <script>addSpeakingLang();</script>
+        <?php endfor;?>
+        <input type="button" name="remove-lang" value="Remove Language" onclick="removeSpeakingLang();"/>
+        <input type="button" name="remove-lang" value="Add Language" onclick="addSpeakingLang(); updatePHPCounterLang();"/><br/>
         <label>Driver`s License</label><br/>
         <label for="B">B</label>
         <input type="checkbox" name="category[]" <?=strpos($category, "B") !== false ? "checked" : ""?> id="B" value="B"/>
@@ -89,6 +96,8 @@ else {
         <label for="C">C</label>
         <input type="checkbox" name="category[]" <?=strpos($category, "C") !== false ? "checked" : ""?> id="C" value="C"/>
     </fieldset>
+    <input type="text" name="counterProg" id="counterProg" value="<?=$counterProg?>" hidden/>
+    <input type="text" name="counterLang" id="counterLang" value="<?=$counterLang?>" hidden/>
     <input type="submit" name="submit-cv" value="Generate CV"/>
 </form>
 <br/>

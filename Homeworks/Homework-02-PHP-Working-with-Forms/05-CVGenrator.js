@@ -2,6 +2,7 @@ var idCounterProg = 0,
     idCounterLang = 0;
 
 function addProgLang() {
+    idCounterProg++;
     var newElement = document.createElement("div");
     newElement.setAttribute("id", "ProgBox" + idCounterProg);
     var levels = ['Beginner', 'Programmer', 'Ninja'];
@@ -15,16 +16,18 @@ function addProgLang() {
 }
 function removeProgLang() {
     var childElement = document.getElementById("parent-prog-lang").lastChild;
-    if (childElement.id != "ProgBox0") {
+    if (childElement.id != "ProgBox1") {
         childElement.parentNode.removeChild(childElement);
         idCounterProg--;
+        updatePHPCounterProg();
     }
 }
-function incerementCounterProg(){
-    idCounterProg++;
+function updatePHPCounterProg() {
+    document.getElementById("counterProg").setAttribute("value", (idCounterProg - 1).toString());
 }
 
 function addSpeakingLang() {
+    idCounterLang++;
     var newElement = document.createElement("div");
     newElement.setAttribute("id", "LangBox" + idCounterLang);
     var skills = ['Comprehension', 'Reading', 'Writing'];
@@ -42,13 +45,14 @@ function addSpeakingLang() {
 }
 function removeSpeakingLang() {
     var childElement = document.getElementById('speaking-lang-parent').lastChild;
-    if(childElement.id != "LangBox0") {
+    if(childElement.id != "LangBox1") {
         childElement.parentNode.removeChild(childElement);
         idCounterLang--;
+        updatePHPCounterLang();
     }
 }
-function incerementCounterLang(){
-    idCounterLang++;
+function updatePHPCounterLang(){
+    document.getElementById("counterLang").setAttribute("value", (idCounterLang - 1).toString());
 }
 
 function generateOptions(levels) {

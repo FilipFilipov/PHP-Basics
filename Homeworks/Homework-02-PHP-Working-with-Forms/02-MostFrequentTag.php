@@ -14,25 +14,15 @@
 <br/>
 <?php
 if (isset($_POST['tags'])) {
-    $tags = explode(", ", $_POST['tags']);
-    $tagsFrequency = array();
-
-    foreach ($tags as $tag) {
-        if (isset($tagsFrequency[$tag])) {
-            $tagsFrequency[$tag]++;
-        }
-        else {
-            $tagsFrequency[$tag] = 1;
-        }
-    }
-
+    $tags = explode(", ", htmlspecialchars($_POST['tags']));
+    $tagsFrequency = array_count_values($tags);
     arsort($tagsFrequency);
 
     foreach ($tagsFrequency as $key => $value) {
-        echo htmlspecialchars($key) . " : $value times<br/>";
+        echo "$key : $value times<br/>";
     }
     reset($tagsFrequency);
-    echo "<br/>Most Frequent Tag is: " . htmlspecialchars(key($tagsFrequency));
+    echo "<br/>Most Frequent Tag is: " . key($tagsFrequency);
 }
 ?>
 </body>
