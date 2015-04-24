@@ -31,6 +31,7 @@ else {
     $counterProg = $counterLang = 1;
 }
 ?>
+
 <html>
 <head>
     <title>CV Generator</title>
@@ -38,6 +39,16 @@ else {
     <script src="05-CVGenrator.js"></script>
 </head>
 <body>
+<?php
+if(isset($_POST['submit-cv'])) {
+    $JPost = json_encode($_POST);
+    echo "<script>form = $JPost;</script>";
+}
+else {
+    echo "<script>form = {};</script>";
+}
+?>
+
 <form action="05-CVGenerator.php" method="post" name="mainForm">
     <fieldset>
         <legend>Personal Information</legend>
@@ -53,8 +64,8 @@ else {
         <input type="date" name="date" id="date" placeholder="dd/mm/yyyy" value="<?=$birthDate?>" required/><br/>
         <label for="nation">Nationality</label><br/>
         <select name="nation" id="nation" required>
-            <option value="Bulgarian">Bulgarian</option>
-            <option value="Non-Bulgarian">Non-Bulgarian</option>
+            <option value="Bulgarian" <?=($nationality === "Bulgarian") ? "selected" : ""?>>Bulgarian</option>
+            <option value="Non-Bulgarian" <?=($nationality === "Non-Bulgarian") ? "selected" : ""?>>Non-Bulgarian</option>
         </select>
     </fieldset>
 
@@ -72,7 +83,7 @@ else {
         <legend>Computer Skills</legend>
         <label>Programming Languages</label><br/>
         <div id="parent-prog-lang"></div>
-        <?php for($i = 0; $i <= $counterProg; $i++) : ?>
+        <?php for($i = 0; $i < $counterProg; $i++) : ?>
             <script>addProgLang();</script>
         <?php endfor;?>
         <input type="button" name="remove-item" value="Remove Language" onclick="removeProgLang();"/>
@@ -83,7 +94,7 @@ else {
         <legend>Other Skills</legend>
         <label>Languages</label><br/>
         <div id="speaking-lang-parent"></div>
-        <?php for($i = 0; $i <= $counterLang; $i++) : ?>
+        <?php for($i = 0; $i < $counterLang; $i++) : ?>
             <script>addSpeakingLang();</script>
         <?php endfor;?>
         <input type="button" name="remove-lang" value="Remove Language" onclick="removeSpeakingLang();"/>

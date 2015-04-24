@@ -1,15 +1,18 @@
 var idCounterProg = 0,
-    idCounterLang = 0;
+    idCounterLang = 0,
+    form;
 
 function addProgLang() {
     idCounterProg++;
+    var progName = form.hasOwnProperty("progLanguages") ? form.progLanguages[idCounterProg - 1] || "" : "";
     var newElement = document.createElement("div");
     newElement.setAttribute("id", "ProgBox" + idCounterProg);
     var levels = ['Beginner', 'Programmer', 'Ninja'];
     newElement.innerHTML =
-        '<input type="text" name="progLanguages[]" required/>' +
-        '<select name="level[]">' +
-        generateOptions(levels) +
+        '<input type="text" name="progLanguages[]" value="' + progName + '" required/>' +
+        '<select name="level[]" required>' +
+        '<option disabled selected>-Level-</option>' +
+        generateOptions(levels, true) +
         '</select>' +
         '<br/>';
     document.getElementById("parent-prog-lang").appendChild(newElement);
@@ -23,22 +26,24 @@ function removeProgLang() {
     }
 }
 function updatePHPCounterProg() {
-    document.getElementById("counterProg").setAttribute("value", (idCounterProg - 1).toString());
+    document.getElementById("counterProg").setAttribute("value", (idCounterProg).toString());
 }
 
 function addSpeakingLang() {
     idCounterLang++;
+    var langName = form.hasOwnProperty("speakingLanguages") ? form.speakingLanguages[idCounterLang - 1] || "" : "";
     var newElement = document.createElement("div");
     newElement.setAttribute("id", "LangBox" + idCounterLang);
     var skills = ['Comprehension', 'Reading', 'Writing'];
     var levels = ['Beginner', 'Intermediate', 'Advanced'];
 
-    newElement.innerHTML = '<input type="text" name="speakingLanguages[]" required/>';
+    newElement.innerHTML = '<input type="text" name="speakingLanguages[]" value="' + langName + '" required/>';
     for(var skill = 0; skill < 3; skill++) {
+        var skillName = skills[skill].toLowerCase();
         newElement.innerHTML +=
-            '<select name="' + skills[skill].toLowerCase() + '[]" required>' +
+            '<select name="' + skillName + '[]" required>' +
             '<option disabled selected>-' + skills[skill] + '-</option>' +
-            generateOptions(levels) + '</select>';
+            generateOptions(levels, false, skillName) + '</select>';
     }
     newElement.innerHTML += '<br/>';
     document.getElementById("speaking-lang-parent").appendChild(newElement);
@@ -52,13 +57,22 @@ function removeSpeakingLang() {
     }
 }
 function updatePHPCounterLang(){
-    document.getElementById("counterLang").setAttribute("value", (idCounterLang - 1).toString());
+    document.getElementById("counterLang").setAttribute("value", (idCounterLang).toString());
 }
 
-function generateOptions(levels) {
+function generateOptions(levels, langIsProg, skillName) {
     var options = "";
+    var propArr = langIsProg ? "level" : skillName;
     for(var level = 0; level < 3; level++) {
-        options += '<option value="' + levels[level] + '">' + levels[level] + '</option>';
+        var levelName = levels[level];
+        options += '<option value="' + levelName + '"';
+        if(form.hasOwnProperty(propArr)) {
+            if((langIsProg && form[propArr][idCounterProg - 1] === levelName) ||
+                (!langIsProg && form[propArr][idCounterLang - 1] === levelName)) {
+                options += ' selected';
+            }
+        }
+        options += '>' + levelName + '</option>';
     }
     return options;
 }

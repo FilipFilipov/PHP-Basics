@@ -34,7 +34,8 @@ if(isset($_POST['tag'])) {
     } else {
         $isValidTag = 'Invalid';
     }
-    echo "<div style='font-size: 25px'>{$isValidTag} HTML tag! <br/>Score: {$_SESSION['score']}</div>";
+    $score = $_SESSION['score'];
+    echo "<div style='font-size: 25px'>$isValidTag HTML tag! <br/>Score: $score</div>";
 }
 ?>
 </body>

@@ -7,33 +7,35 @@ include('06-Countries.php');
 <head>
     <meta charset="UTF-8">
     <title>Combo Box</title>
+    <style>
+        select {
+            width:250px;
+        }
+    </style>
 </head>
 <body>
 <form method="get" id="form">
-    <select name="continents" required onchange="document.getElementById('form').submit()">
-        <option hidden></option>
-        <?=
-        "<option ", isset($_GET['continents']) && $_GET['continents'] == "Europe" ? 'selected' : '',
-        " value='Europe'>Europe</option><br/>",
-        "<option ", isset($_GET['continents']) && $_GET['continents'] == "Asia" ? 'selected' : '',
-        " value='Asia'>Asia</option><br/>",
-        "<option ", isset($_GET['continents']) && $_GET['continents'] == "North America" ? 'selected' : '',
-        " value='North America'>North America</option><br/>",
-        "<option ", isset($_GET['continents']) && $_GET['continents'] == "South America" ? 'selected' : '',
-        " value='South America'>South America</option><br/>",
-        "<option ", isset($_GET['continents']) && $_GET['continents'] == "Australia and Oceania" ? 'selected' : '',
-        " value='Australia and Oceania'>Australia and Oceania</option><br/>",
-        "<option ", isset($_GET['continents']) && $_GET['continents'] == "Africa" ? 'selected' : '',
-        " value='Africa'>Africa</option><br/>"
-        ?>
+    <select name="continents" id="continents" required onchange="document.getElementById('form').submit()">
+        <option disabled selected>Select Continent</option>
+        <option value='1'>Europe</option>
+        <option value='2'>Asia</option>
+        <option value='3'>North America</option>
+        <option value='4'>South America</option>
+        <option value='5'>Australia and Oceania</option>
+        <option value='6'>Africa</option>
     </select>
+    <script>
+        if(<?=isset($_GET['continents'])?>) {
+            document.getElementById("continents").selectedIndex = <?=$_GET['continents']?>;
+        }
+    </script>
     <select>
-        <option hidden></option>
+        <option disabled selected>Select Country</option>
         <?php
-        if(isset($_GET['continents'])) {
+        if(isset($_GET['continents'])){
             $countries = $countryList[$_GET['continents']];
-            foreach ($countries as $value) {
-                echo "<option value='$value'>$value</option><br/>";
+            foreach ($countries as $country) {
+                echo "<option value='$country'>$country</option>";
             }
         }
         ?>
