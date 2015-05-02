@@ -1,7 +1,7 @@
 <?php
 function printSidebar($header, $list) {
     $elements = explode(', ', $list); ?>
-    <div class="bar">
+    <aside class="bar">
         <h3><?= $header ?></h3>
         <hr/>
         <ul>
@@ -11,7 +11,7 @@ function printSidebar($header, $list) {
                 </li>
             <?php endforeach ?>
         </ul>
-    </div>
+    </aside>
 <?php } ?>
 
 <!DOCTYPE html>

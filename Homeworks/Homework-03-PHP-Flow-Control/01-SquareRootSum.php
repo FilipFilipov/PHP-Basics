@@ -14,7 +14,7 @@
     <?php
     $sum = 0;
     for ($number = 0; $number <= 100; $number += 2):
-        $squareRoot = number_format(sqrt($number), 2);
+        $squareRoot = round(sqrt($number), 2);
         $sum += $squareRoot;
         ?>
         <tr>

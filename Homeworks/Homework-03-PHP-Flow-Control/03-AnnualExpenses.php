@@ -14,11 +14,11 @@
 <br/>
 <?php if(isset($_POST['number']) && $_POST['number'] > 0):
     $header[0] = 'Year';
-    $date = strtotime('1st January');
-    $year = date('Y', $date);
+    $date = strtotime('Jan');
+    $year = (int)date('Y');
     for ($month = 1; $month <= 12; $month++) {
         $header[$month] = date('F', $date);
-        $date = strtotime("+1 month", $date);
+        $date = strtotime('+1 month', $date);
     }
     $header[13] = 'Total';
 
@@ -33,9 +33,9 @@
     ?>
     <table>
         <tr>
-            <?php for ($month = 0; $month < 14; $month++): ?>
+            <?php for ($i = 0; $i < 14; $i++): ?>
                 <th>
-                    <?= $header[$month] ?>
+                    <?= $header[$i] ?>
                 </th>
             <?php endfor ?>
         </tr>

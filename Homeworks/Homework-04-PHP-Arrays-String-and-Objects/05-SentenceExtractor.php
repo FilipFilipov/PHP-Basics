@@ -19,7 +19,7 @@ if(isset($_POST['submit'])) {
     $text = htmlspecialchars($_POST['text']);
     $word = htmlspecialchars($_POST['word']);
 
-    $pattern = '/[^.?!]*(?:\b' . $word . '\b)[^.?!]*[.?!](?: |$)/i';
+    $pattern = "/\\b[^.?!]*(?:\\b$word\\b)[^.?!]*[.?!]/i";
     preg_match_all($pattern, $text, $matches);
 
     foreach ($matches[0] as $sentence) {

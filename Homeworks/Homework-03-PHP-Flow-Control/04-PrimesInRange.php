@@ -20,19 +20,21 @@ if(isset($_POST['submit']) && $_POST['start'] <= $_POST['end']) {
 
     function isPrime($number)
     {
-        if ($number < 2) {
+        if($number == 2) {
+            return true;
+        }
+        if($number < 2 || $number % 2 == 0) {
             return false;
         }
 
-        $numSqrt = sqrt($number);
-        $isPrime = true;
-
-        for ($i = 2; $i <= $numSqrt; $i++) {
+        $numSqrt = ceil(sqrt($number));
+        for($i = 3; $i <= $numSqrt; $i += 2) {
             if ($number % $i == 0) {
                 return false;
             }
         }
-        return $isPrime;
+
+        return true;
     }
 
     $numbers = [];

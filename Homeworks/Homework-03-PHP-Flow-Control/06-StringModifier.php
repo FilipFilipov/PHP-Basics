@@ -16,7 +16,7 @@
     <label for="r3">Split </label>
     <input id="r4" type="radio" name="action" value="hashString">
     <label for="r4"> Hash String</label>
-    <input id="r5" type="radio" name="action" value="shuffleString">
+    <input id="r5" type="radio" name="action" value="str_shuffle">
     <label for="r5"> Shuffle String</label>
     <input type="submit" name="submit" value="Submit">
 </form>
@@ -28,7 +28,7 @@ if(!empty($_POST['input'])) {
     function checkPalindrome($input)
     {
         $negative = '';
-        if(strrev($input) !== $input) {
+        if(strrev(strtolower($input)) !== strtolower($input)) {
             $negative = 'not';
         }
         return "$input is $negative a palindrome!";
@@ -42,13 +42,6 @@ if(!empty($_POST['input'])) {
     function hashString($input)
     {
         return password_hash($input, PASSWORD_DEFAULT);
-    }
-
-    function shuffleString($input)
-    {
-        $chars = str_split($input);
-        shuffle($chars);
-        return implode('', $chars);
     }
 
     echo $action($input);

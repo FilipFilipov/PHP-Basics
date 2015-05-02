@@ -18,7 +18,7 @@
             <tr>
                 <td><?= $number; ?></td>
                 <td><?= (filter_var($number, FILTER_VALIDATE_INT) !== false) ?
-                        array_sum(str_split($number)) : 'I cannot sum that'; ?></td>
+                        array_sum(str_split(intval($number))) : 'I cannot sum that'; ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

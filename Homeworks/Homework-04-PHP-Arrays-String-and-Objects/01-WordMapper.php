@@ -14,7 +14,7 @@
     <table>
         <?php
         $text = strtolower(htmlspecialchars($_POST['text']));
-        $words = preg_split("/\W+/", $text, -1, PREG_SPLIT_NO_EMPTY);
+        $words = preg_split('/\W+/', $text, 0, PREG_SPLIT_NO_EMPTY);
         $frequencies = array_count_values($words);
         foreach ($frequencies as $key => $word):
             ?>
